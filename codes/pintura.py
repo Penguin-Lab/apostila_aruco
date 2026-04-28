@@ -1,3 +1,4 @@
+# Modificado de Lab Visio: https://github.com/labvisio/kits-demonstracao-visao/blob/main/aruco_draw.py
 import cv2
 import cv2.aruco as aruco
 
