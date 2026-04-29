@@ -12,12 +12,9 @@ aruco_dict = aruco.getPredefinedDictionary(aruco.DICT_4X4_1000)
 detector = aruco.ArucoDetector(aruco_dict, aruco.DetectorParameters())
 
 pares = {
-    973: "mona.png",
-    62: "mona.png",
-    118: "noite.png",
-    88: "noite.png",
-    49: "grito.png",
-    17: "grito.png"
+    973: "mona.png", 62: "mona.png",
+    118: "noite.png", 88: "noite.png",
+    49: "grito.png", 17: "grito.png"
 }
 
 imagens = {k: cv2.imread(v) for k, v in pares.items()}
