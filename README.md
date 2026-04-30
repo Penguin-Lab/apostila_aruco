@@ -20,15 +20,16 @@ Grande parte dos códigos foi gerada com apoio de **Inteligência Artificial**, 
 apostila/
     └── apostila.pdf
 
-exemplos/
-    ├── chamada_aruco.py
-    ├── desenho_aruco.py
-    ├── batalha_tanques.py
-    ├── museu_aruco.py
-    └── jogo_memoria.py
+codes/
+    ├── canhao.py
+    ├── chamada.py
+    ├── exemplo.py
+    ├── memoria.py
+    ├── museu.py
+    └── pintura.py
 
-imagens/
-    └── (artes usadas nos exemplos)
+codes/museu/
+        └── (artes usadas nos exemplos)
 
 README.md
 ```
