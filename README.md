@@ -62,7 +62,7 @@ Contato: [leonardo.assis@ifes.edu.br](mailto:leonardo.assis@ifes.edu.br)
 
 ---
 
-## 📄 Licença
+## Licença
 
 Este material pode ser utilizado livremente para fins educacionais.
 Se possível, cite o projeto :)
