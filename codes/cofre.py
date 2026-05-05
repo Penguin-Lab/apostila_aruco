@@ -1,7 +1,11 @@
 import cv2, numpy as np, pygame
 
-# ID do ArUco
+# ID do ArUco =============
 ID_COFRE = 8
+
+# Combinacao ==============
+seq_ang = [90,180,270,0]
+seq_dir = [(-1)**i for i in range(len(seq_ang))]
 
 # =========================
 # ARQUIVOS
@@ -57,8 +61,6 @@ aruco = cv2.aruco.ArucoDetector(
     cv2.aruco.DetectorParameters()
 )
 
-seq_dir = [1,-1,1,-1]
-seq_ang = [90,180,270,0]
 LIM = 8
 
 state = 0
