@@ -1,5 +1,8 @@
 import cv2, numpy as np, pygame
 
+# ID do ArUco
+ID_COFRE = 8
+
 # =========================
 # ARQUIVOS
 # =========================
@@ -76,7 +79,7 @@ while True:
 
     if ids is not None:
         for pts, i in zip(corners, ids):
-            if i == 8:
+            if i == ID_COFRE:
                 pts = pts[0]
 
                 ang = angulo(pts[0], pts[1])
