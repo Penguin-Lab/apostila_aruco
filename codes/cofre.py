@@ -96,6 +96,7 @@ while True:
                     if d != seq_dir[state]:
                         state = 0
                         print("Errou!")
+                        cv2.putText(out,"X",(450, 100),cv2.FONT_HERSHEY_SIMPLEX, 2,(0, 0, 255), 3)
                     else:
                         # verifica ângulo
                         if abs(ang - seq_ang[state]) < 6:
@@ -120,6 +121,15 @@ while True:
                 fg = cv2.bitwise_and(warp,warp,mask=mask)
 
                 out = cv2.add(bg, fg)
+                if state == 1:
+                    cv2.putText(out,"V",(450, 100),cv2.FONT_HERSHEY_SIMPLEX, 2,(0, 255, 0), 3)
+                elif state == 2:
+                    cv2.putText(out,"V",(530, 100),cv2.FONT_HERSHEY_SIMPLEX, 2,(0, 255, 0), 3)
+                    cv2.putText(out,"V",(400, 100),cv2.FONT_HERSHEY_SIMPLEX, 2,(0, 255, 0), 3)
+                elif state == 3:
+                    cv2.putText(out,"V",(580, 100),cv2.FONT_HERSHEY_SIMPLEX, 2,(0, 255, 0), 3)
+                    cv2.putText(out,"V",(320, 100),cv2.FONT_HERSHEY_SIMPLEX, 2,(0, 255, 0), 3)
+                    cv2.putText(out,"V",(450, 100),cv2.FONT_HERSHEY_SIMPLEX, 2,(0, 255, 0), 3)
 
     # tela final
     if mostrar_final:
