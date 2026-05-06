@@ -11,7 +11,7 @@ from sklearn.cluster import KMeans
 game = 'Demo'
 # game = 'Embaralha'
 
-base_path = "./imagem/"     # Pasta das imagens
+base_path = "./quebracabeca/"     # Pasta das imagens
 imagens = [cv2.imread(os.path.join(base_path, f"mapa_{i}.png")) for i in range(1, 16)]
 
 # =========================
