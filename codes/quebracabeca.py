@@ -5,16 +5,14 @@ import numpy as np
 import threading
 import queue
 import os
-import pygame
 from sklearn.cluster import KMeans
 
-# === Nomes dos Jogos ===
+# = Modalidade dos Jogos ==
 game = 'Demo'
-#game = 'Angry ArUcos'
-#game = 'PokéPuzzle GO!'
-#game = 'GTA: San Puzzle'
-#game = 'Super Mario Puzzle'
-#game = 'League of ArUcos'
+# game = 'Embaralha'
+
+base_path = "./imagem/"     # Pasta das imagens
+imagens = [cv2.imread(os.path.join(base_path, f"mapa_{i}.png")) for i in range(1, 16)]
 
 # =========================
 # CONFIG WEBCAM
@@ -22,54 +20,20 @@ game = 'Demo'
 cap = cv2.VideoCapture(0)
 frame_queue = queue.Queue(maxsize=2)
 
-# === Função auxiliar: tocar áudio ===
-def tocar_audio(caminho_audio):
-    pygame.mixer.init()
-    pygame.mixer.music.load(caminho_audio)
-    pygame.mixer.music.play()
-    while pygame.mixer.music.get_busy():
-        pygame.time.Clock().tick(10)
-
-# === Thread: Recebe frames do broker ===
-def to_frame():
-    ret, frame = cap.read()
-    if ret:
-        if frame_queue.full():
-            frame_queue.get_nowait()
-        frame_queue.put_nowait(frame)
-
-def receber_frames():
+# === Thread: pegar fotos da camera ===
+def tira_foto():
     while True:
-        to_frame()
+        ret, frame = cap.read()
+        if ret:
+            if frame_queue.full():
+                frame_queue.get_nowait()
+            frame_queue.put_nowait(frame)
         time.sleep(0.01)
 
 # === Thread: Processa e exibe os frames com overlay ===
 def processar_frames(id_map):
     cv2.namedWindow("Quebra-Cabeça", cv2.WINDOW_NORMAL)
-    tela_preta_inicial = np.zeros((720, 1280, 3), dtype=np.uint8)
-    cv2.imshow("Quebra-Cabeça", tela_preta_inicial)
-    cv2.setWindowProperty("Quebra-Cabeça", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
-
-    if game in videos_intro_paths:
-        cap2 = cv2.VideoCapture(videos_intro_paths[game])
-
-        # Caminho do áudio correspondente
-        intro_audio = audios_intro_paths.get(game, None)
-
-        # Inicia thread para rodar o áudio em paralelo
-        if intro_audio and os.path.exists(intro_audio):
-            threading.Thread(target=tocar_audio, args=(intro_audio,), daemon=True).start()
-
-        if cap2.isOpened():
-            while True:
-                ret, frame = cap2.read()
-                if not ret: break
-                frame_resized = cv2.resize(frame, (1280, 720))
-                cv2.imshow("Quebra-Cabeça", frame_resized)
-                if cv2.waitKey(30) & 0xFF == ord('q'): break
-        cap2.release()
-    
-    cv2.waitKey(1)
+    # cv2.setWindowProperty("Quebra-Cabeça", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)    # habilita tela cheia
     resize_scale = 0.4
 
     while True:
@@ -101,7 +65,7 @@ def processar_frames(id_map):
                     frame_full = cv2.add(frame_full, cv2.bitwise_and(warped, mask_3ch))
 
         frame_resized = cv2.resize(frame_full, None, fx=3, fy=3)
-        cv2.imshow("Quebra-Cabeça", frame_resized)
+        cv2.imshow("Quebra-Cabeça", cv2.flip(frame_resized,1))
 
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
@@ -163,48 +127,8 @@ def verificar_grade():
 
         if match:
             print("Sequência correta!")
-            if last_match_state is not True:
-                win_message = game_messages.get(game, 1 if game == 'Demo' else 0)
-            last_match_state = True
         else:
             print("Sequência incorreta!")
-            last_match_state = False
-
-games_paths = {
-    'Demo': "./Imagem1/",
-    'PokéPuzzle GO!': "./Imagem3/",
-    'Angry ArUcos': "./Imagem4/",
-    'GTA: San Puzzle': "./Imagem5/",
-    'Super Mario Puzzle': "./Imagem6/",
-    'League of ArUcos': "./Imagem7/",
-}
-
-videos_intro_paths = {
-    'PokéPuzzle GO!': "./Imagem3/intro_pokemon.mp4",
-    'Angry ArUcos': "./Imagem4/intro_angry_birds.mp4",
-    'GTA: San Puzzle': "./Imagem5/intro_gta.mp4",
-    'Super Mario Puzzle': "./Imagem6/intro_mario.mp4",
-    'League of ArUcos': "./Imagem7/intro_lol.mp4",
-}
-
-# Dicionário de áudios extraídos
-audios_intro_paths = {
-    'PokéPuzzle GO!': "./Imagem3/intro_pokemon.mp3",
-    'Angry ArUcos': "./Imagem4/intro_angry_birds.mp3",
-    'GTA: San Puzzle': "./Imagem5/intro_gta.mp3",
-    'Super Mario Puzzle': "./Imagem6/intro_mario.mp3",
-    'League of ArUcos': "./Imagem7/intro_lol.mp3",
-}
-
-game_messages = {
-    "Angry ArUcos": "angry-game-win", "PokéPuzzle GO!": "poke-game-win",
-    "GTA: San Puzzle": "gta-game-win", "Super Mario Puzzle": "mario-game-win",
-    "League of ArUcos": "lol-game-win"
-}
-
-# --- CONFIGURAÇÃO E INICIALIZAÇÃO ---
-base_path = games_paths.get(game, "./Imagem1/")
-imagens = [cv2.imread(os.path.join(base_path, f"mapa_{i}.png")) for i in range(1, 16)]
 
 if game == 'Demo':
     expected = [[1, 2, 3, 4], [5, 6, 7, 8], [9,10,11,12], [13,14,15,None]]
@@ -213,7 +137,7 @@ else:
     random.shuffle(numeros)
     numeros.append(None)
     expected = [numeros[i*4:(i+1)*4] for i in range(4)]
-    print("Grade esperada (expected):")
+    print("Grade esperada:")
     for row in expected:
         print(row)
 
@@ -234,7 +158,7 @@ detector = cv2.aruco.ArucoDetector(dictionary, parameters)
 
 frame_queue = queue.Queue(maxsize=2)
 
-t1 = threading.Thread(target=receber_frames, daemon=True)
+t1 = threading.Thread(target=tira_foto, daemon=True)
 t2 = threading.Thread(target=processar_frames, args=(id_para_peca_map,))
 t3 = threading.Thread(target=verificar_grade, daemon=True)
 
