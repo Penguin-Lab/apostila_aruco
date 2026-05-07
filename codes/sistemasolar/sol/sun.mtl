@@ -1,0 +1,36 @@
+# MTL file - created by a modified js OBJExporter
+
+newmtl material
+Tr 0.0000
+Tf 1.0000 1.0000 1.0000
+illum 1
+Pr 1
+Pds 1
+Pl 1
+Ka 1 1 1
+Kd 1 1 1
+Ke 1 1 1
+map_Kd material.png
+map_Ke material.png
+
+newmtl material_1
+Tr 0.0000
+Tf 1.0000 1.0000 1.0000
+illum 1
+Pr 1
+Pds 1
+Pl 1
+Pccns 1-1
+Prfl 0.5
+Pior 1.5
+Pshc 0 0 0
+Pshr 1
+Psi 1
+Psc 1 1 1
+Ptr 1
+Ka 1 1 1
+Kd 1 1 1
+Ke 0.7488567073170733 0.7488567073170733 0.7488567073170733
+map_Kd material_1.png
+map_Ke material.png
+map_Ptrm transmissionMap2.png
