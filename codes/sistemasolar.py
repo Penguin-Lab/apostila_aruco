@@ -212,6 +212,14 @@ meshes[9] = carregar_obj(
     altura=100
 )
 
+# Decimo primeioro ArUco ID 10
+meshes[10] = carregar_obj(
+    "./sistemasolar/lua/lua.obj",
+    escala=0.01,
+    rot_x=90,
+    altura=4
+)
+
 # ==========================================
 # CRIA NODES FIXOS
 # ==========================================
