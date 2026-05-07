@@ -16,17 +16,33 @@ for i in range(16):
 # CARREGA SONS
 # ==========================================
 sons = {}
+# 0 - fox
+# 1 - floresta
+# 2 - praia
+# 3 - passaros
+# 4 - chuva
+# 5 - fogueira
+# 6 - vila
+# 7 - barco
 
-sons[0] = pygame.mixer.Sound("./sons/floresta.wav")
-sons[1] = pygame.mixer.Sound("./sons/vila_medieval.wav")
+sons[0] = pygame.mixer.Sound("./sons/fox.wav")
+sons[1] = pygame.mixer.Sound("./sons/floresta.wav")
 sons[2] = pygame.mixer.Sound("./sons/praia.wav")
 sons[3] = pygame.mixer.Sound("./sons/passaros.wav")
+sons[4] = pygame.mixer.Sound("./sons/chuva.wav")
+sons[5] = pygame.mixer.Sound("./sons/fogueira.wav")
+sons[6] = pygame.mixer.Sound("./sons/vila_medieval.wav")
+sons[7] = pygame.mixer.Sound("./sons/barco.wav")
 
 # volumes
 sons[0].set_volume(0.6)
 sons[1].set_volume(0.6)
-sons[2].set_volume(0.4)
+sons[2].set_volume(0.5)
 sons[3].set_volume(0.5)
+sons[4].set_volume(0.5)
+sons[5].set_volume(0.5)
+sons[6].set_volume(0.5)
+sons[7].set_volume(0.5)
 
 # ==========================================
 # SONS TOCANDO
