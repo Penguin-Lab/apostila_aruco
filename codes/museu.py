@@ -4,7 +4,7 @@ import numpy as np
 
 cap = cv2.VideoCapture(0)
 
-# 📌 Configuração: ID -> (caminho PNG, escala)
+# Configuração: ID -> (caminho PNG, escala)
 imagens = {
     0: ("mona.png", 10.0),
     1: ("grito.png", 5),
