@@ -106,21 +106,21 @@ meshes = {}
 
 # Primeiro ArUco ID 0
 meshes[0] = carregar_obj(
-    "./cenario/low-poly-fox-by-pixelmannen.obj",
+    "./cenario/fox/low-poly-fox-by-pixelmannen.obj",
     escala=0.0005,
     rot_x=90
 )
 
 # Segundo ArUco ID 20
 meshes[20] = carregar_obj(
-    "./cenario/low-poly-fox-by-pixelmannen.obj",
+    "./cenario/fox/low-poly-fox-by-pixelmannen.obj",
     escala=0.001,
     rot_x=90
 )
 
 # Terceiro ArUco ID 3
 meshes[3] = carregar_obj(
-    "./cenario/low-poly-fox-by-pixelmannen.obj",
+    "./cenario/fox/low-poly-fox-by-pixelmannen.obj",
     escala=0.002,
     rot_x=90
 )
