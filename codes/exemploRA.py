@@ -2,6 +2,7 @@ import cv2
 import numpy as np
 import trimesh
 import pyrender
+from PIL import Image
 
 # ==========================================
 # CAMERA
@@ -59,7 +60,7 @@ cam_node = scene.add(camera)
 # ==========================================
 # LUZ
 # ==========================================
-light = pyrender.DirectionalLight(color=np.ones(3),intensity=3.0)
+light = pyrender.DirectionalLight(color=np.ones(3),intensity=20.0)
 scene.add(light)
 
 # ==========================================
@@ -70,8 +71,34 @@ renderer = pyrender.OffscreenRenderer(width,height)
 # ==========================================
 # FUNCAO PARA PREPARAR OBJETOS
 # ==========================================
-def carregar_obj(caminho,escala=0.01,rot_x=0,rot_y=0,rot_z=0,altura=0.02):
+def carregar_obj(caminho,escala=0.01,rot_x=0,rot_y=0,rot_z=0,altura=0.02,max_textura=2048):
     mesh = trimesh.load(caminho)
+    if isinstance(mesh, trimesh.Scene):
+        mesh = trimesh.util.concatenate(
+            tuple(mesh.geometry.values())
+        )
+
+    try:
+        if hasattr(mesh.visual, 'material'):
+            material = mesh.visual.material
+            if hasattr(material, 'image'):
+                img = material.image
+                if img is not None:
+                    img_np = np.array(img)
+                    h, w = img_np.shape[:2]
+                    print(f"Textura original: {w}x{h}")
+                    # se textura muito grande
+                    if w > max_textura or h > max_textura:
+                        print("Redimensionando textura...")
+                        pil_img = Image.fromarray(img_np)
+                        pil_img.thumbnail((max_textura, max_textura))
+
+                        material.image = np.array(pil_img)
+                        nh, nw = material.image.shape[:2]
+                        print(f"Nova textura: {nw}x{nh}")
+    except Exception as e:
+        print("Erro ao processar textura:")
+        print(e)
 
     # centraliza
     mesh.apply_translation(-mesh.centroid)
@@ -88,14 +115,14 @@ def carregar_obj(caminho,escala=0.01,rot_x=0,rot_y=0,rot_z=0,altura=0.02):
     mesh.apply_transform(rz)
     
     # ==========================
-    # ESCALA
-    # ==========================
-    mesh.apply_scale(escala)
-
-    # ==========================
     # MOVE PRA CIMA
     # ==========================
     mesh.apply_translation([0, 0, altura])
+
+    # ==========================
+    # ESCALA
+    # ==========================
+    mesh.apply_scale(escala)
 
     return pyrender.Mesh.from_trimesh(mesh)
 
@@ -108,21 +135,65 @@ meshes = {}
 meshes[0] = carregar_obj(
     "./cenario/fox/low-poly-fox-by-pixelmannen.obj",
     escala=0.0005,
-    rot_x=90
+    rot_x=90,
+    altura=40
 )
 
-# Segundo ArUco ID 20
-meshes[20] = carregar_obj(
-    "./cenario/fox/low-poly-fox-by-pixelmannen.obj",
-    escala=0.001,
-    rot_x=90
+# Segundo ArUco ID 1
+meshes[1] = carregar_obj(
+    "./cenario/rio/low_poly_river.obj",
+    escala=0.02,
+    rot_x=90,
+    altura=0
 )
 
-# Terceiro ArUco ID 3
+# Terceiro ArUco ID 2
+meshes[2] = carregar_obj(
+    "./cenario/praia/the_beach.obj",
+    escala=0.02,
+    rot_x=90,
+    altura=0
+)
+
+# Quarto ArUco ID 3
 meshes[3] = carregar_obj(
-    "./cenario/fox/low-poly-fox-by-pixelmannen.obj",
-    escala=0.002,
-    rot_x=90
+    "./cenario/birds/birds.obj",
+    escala=0.02,
+    rot_x=180,
+    altura=5
+)
+
+# Quinto ArUco ID 4
+meshes[4] = carregar_obj(
+    "./cenario/chuva/rain_1.obj",
+    escala=0.0002,
+    rot_x=90,
+    altura=1000
+)
+
+# Sexto ArUco ID 5
+meshes[5] = carregar_obj(
+    "./cenario/fogueira/printable_fire_pit.obj",
+    escala=0.01,
+    rot_x=90,
+    altura=0
+)
+
+# Setimo ArUco ID 6
+meshes[6] = carregar_obj(
+    "./cenario/vila/village_low_poly.obj",
+    escala=0.1,
+    rot_x=90,
+    altura=0,
+    max_textura=4096
+)
+
+# Oitavo ArUco ID 7
+meshes[7] = carregar_obj(
+    "./cenario/barco/rowing_boat.obj",
+    escala=0.00002,
+    rot_x=90,
+    altura=1000
 )
 
 # ==========================================
