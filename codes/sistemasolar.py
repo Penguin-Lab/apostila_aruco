@@ -134,7 +134,7 @@ meshes = {}
 # Primeiro ArUco ID 0
 meshes[0] = carregar_obj(
     "./sistemasolar/sol/sun.obj",
-    escala=0.01,
+    escala=0.04,
     rot_x=90,
     altura=10
 )
@@ -159,7 +159,7 @@ meshes[2] = carregar_obj(
 meshes[3] = carregar_obj(
     "./sistemasolar/terra/earth (3).obj",
     escala=0.03,
-    rot_x=180,
+    rot_x=90,
     altura=1
 )
 
