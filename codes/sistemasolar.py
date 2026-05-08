@@ -299,7 +299,7 @@ while True:
     # mistura
     frame[mask] = color[:, :, :3][mask]
 
-    cv2.imshow("Cenario RA", cv2.flip(frame,1))
+    cv2.imshow("Sistema solar", cv2.flip(frame,1))
 
     key = cv2.waitKey(1)
     if key == ord('q'):
