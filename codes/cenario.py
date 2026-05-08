@@ -282,7 +282,7 @@ while True:
     if ids is not None:
         cv2.aruco.drawDetectedMarkers(frame,corners,ids)
         ids_ativos = set(ids.flatten())
-        for i, marker_id in enumerate(ids_ativos):
+        for i, marker_id in enumerate(ids.flatten()):
             img_points = corners[i][0]
             success, rvec, tvec = cv2.solvePnP(obj_points,img_points,camera_matrix,dist_coeffs)
             if success:
