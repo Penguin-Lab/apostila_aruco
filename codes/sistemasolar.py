@@ -7,7 +7,7 @@ from PIL import Image
 # ==========================================
 # CAMERA
 # ==========================================
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
 ret, frame = cap.read()
 height, width = frame.shape[:2]
 
@@ -93,9 +93,15 @@ def carregar_obj(caminho,escala=0.01,rot_x=0,rot_y=0,rot_z=0,altura=0.02,max_tex
                         pil_img = Image.fromarray(img_np)
                         pil_img.thumbnail((max_textura, max_textura))
 
-                        material.image = np.array(pil_img)
-                        nh, nw = material.image.shape[:2]
+                        # material.image = np.array(pil_img)
+                        material.image = pil_img
+                        nw, nh = pil_img.size
                         print(f"Nova textura: {nw}x{nh}")
+                    else:
+                        img_np = np.fliplr(img_np)
+                        # atualiza textura
+                        material.image = img_np
+                    
     except Exception as e:
         print("Erro ao processar textura:")
         print(e)
@@ -134,7 +140,7 @@ meshes = {}
 # Primeiro ArUco ID 0
 meshes[0] = carregar_obj(
     "./sistemasolar/sol/sun.obj",
-    escala=0.04,
+    escala=0.02,
     rot_x=90,
     altura=10
 )
@@ -174,15 +180,15 @@ meshes[4] = carregar_obj(
 # Sexto ArUco ID 5
 meshes[5] = carregar_obj(
     "./sistemasolar/jupiter/realistic_jupiter.obj",
-    escala=0.002,
+    escala=0.001,
     rot_x=90,
-    altura=20
+    altura=100
 )
 
 # Setimo ArUco ID 6
 meshes[6] = carregar_obj(
     "./sistemasolar/saturno/saturno_saturn.obj",
-    escala=0.2,
+    escala=0.1,
     rot_x=90,
     altura=1,
     max_textura=4096
@@ -199,7 +205,7 @@ meshes[7] = carregar_obj(
 # Nono ArUco ID 8
 meshes[8] = carregar_obj(
     "./sistemasolar/netuno/neptune.obj",
-    escala=0.08,
+    escala=0.04,
     rot_x=90,
     altura=2
 )
