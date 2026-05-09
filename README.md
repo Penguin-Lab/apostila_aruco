@@ -22,14 +22,38 @@ apostila/
 
 codes/
     ├── canhao.py
+    ├── cenario.py
     ├── chamada.py
+    ├── cofre.py
+    ├── cortarimagem.py
     ├── exemplo.py
+    ├── exemploRA.py
+    ├── grafico.py
     ├── memoria.py
+    ├── mixer.py
     ├── museu.py
-    └── pintura.py
+    ├── museuperspectiva.py
+    ├── pintura.py
+    ├── quebracabeca.py
+    └── sistemasolar.py
+
+codes/cenario/
+        └── (modelos 3D usados nos exemplos)
+
+codes/cofre/
+        └── (imagens e áudios usados no exemplo do cofre.py)
 
 codes/museu/
         └── (artes usadas nos exemplos)
+
+codes/quebracabeca/
+        └── (imagens usadas no exemplo do quebracabeca.py)
+
+codes/sistemasolar/
+        └── (modelos 3D de astros celestes usados no exemplo do sistema solar em RA)
+
+codes/sons/
+        └── (arquivos de áudio usados nos exemplos)
 
 README.md
 ```
@@ -42,8 +66,15 @@ README.md
 * Chamada automática de alunos
 * Desenho interativo com ArUcos
 * Jogo de batalha de canhões com física básica
-* Realidade aumentada (substituição por imagens)
+* Realidade Aumentada (substituição por imagens)
+* Realidade Aumentada com obras de arte em perspectiva
 * Jogo da memória com visão computacional
+* Quebra-cabeça
+* Realidade Aumentada com modelos 3D
+* Mixer de áudio
+* Cenário de Realidade Aumentada com modelos 3D e áudio ambiente interativo
+* Sistema solar em Realidade Aumentada
+* Sistema de coordenadas cartesianas com ArUcos
 
 ---
 
