@@ -91,6 +91,7 @@ while True:
             cy = int(pts[:, 1].mean())
 
             if marker_id in fixos or marker_id in revelados:
+                marker_id = int(marker_id)
                 img = imagens[marker_id]
                 if img is not None:
                     img = cv2.resize(img, (100, 100))
