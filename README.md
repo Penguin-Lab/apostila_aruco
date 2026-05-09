@@ -2,7 +2,7 @@
 
 Material didático desenvolvido pelo **Lab Penguin (IFES – Guarapari)** para auxiliar professores e estudantes no uso de visão computacional em sala de aula de forma simples, acessível e prática.
 
-<img src="[https://github.com/Penguin-Lab/tiffany/blob/main/images/tiffany0.jpeg](https://github.com/Penguin-Lab/apostila_aruco/blob/main/background.png)" height="250">
+<img src="https://github.com/Penguin-Lab/apostila_aruco/blob/main/background.png" height="250">
 ---
 
 ## Sobre o projeto
