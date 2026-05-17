@@ -71,7 +71,7 @@ renderer = pyrender.OffscreenRenderer(width,height)
 # ==========================================
 # FUNCAO PARA PREPARAR OBJETOS
 # ==========================================
-def carregar_obj(caminho,escala=0.01,rot_x=0,rot_y=0,rot_z=0,altura=0.02,max_textura=2048):
+def carregar_obj(caminho,escala=0.01,rot_x=0,rot_y=0,rot_z=0,altura=0.02,max_textura=4096):
     mesh = trimesh.load(caminho)
     if isinstance(mesh, trimesh.Scene):
         mesh = trimesh.util.concatenate(
